@@ -2,17 +2,17 @@
 <sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
     <sitemap>
-        <loc>https://rmp4.github.io/blog/post-sitemap.xml</loc>
+        <loc>http://yoursite-url/post-sitemap.xml</loc>
         <lastmod>2018-10-13T06:09:20.096Z</lastmod>
     </sitemap>
 
     <sitemap>
-        <loc>https://rmp4.github.io/blog/page-sitemap.xml</loc>
+        <loc>http://yoursite-url/page-sitemap.xml</loc>
         <lastmod>2018-10-13T06:09:20.156Z</lastmod>
     </sitemap>
 
     <sitemap>
-        <loc>https://rmp4.github.io/blog/tag-sitemap.xml</loc>
+        <loc>http://yoursite-url/tag-sitemap.xml</loc>
         <lastmod>2018-10-13T06:09:20.085Z</lastmod>
     </sitemap>
 
