@@ -7,6 +7,14 @@
     </url>
 
     <url>
+        <loc>http://yoursite-url/2019/03/14/golang/</loc>
+        <lastmod>2019-03-14T14:22:11.423Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
         <loc>http://yoursite-url/2018/10/11/test/</loc>
         <lastmod>2018-10-13T06:09:20.096Z</lastmod>
         <changefreq>weekly</changefreq>
