@@ -14,11 +14,11 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <title>
         
-          Golang 簡介 - 休息是因為不想再走路
+          Prisma on kubernetes - 休息是因為不想再走路
         
     </title>
 
-    <link rel="canonical" href="http://yoursite-url/blog/2019/03/14/golang/">
+    <link rel="canonical" href="http://yoursite-url/blog/2018/09/21/Prisma-on-kubernetes/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="../../../../css/bootstrap.min.css">
@@ -69,7 +69,7 @@
 <style type="text/css">
     header.intro-header{
         
-            background-image: url('peter-feghali-445901-unsplash.jpg')
+            background-image: url('boat.jpg')
             /*post*/
         
     }
@@ -90,14 +90,16 @@
                     <div class="post-heading">
                         <div class="tags">
                             
-                              <a class="tag" href="/blog/tags/#golang" title="golang">golang</a>
+                              <a class="tag" href="/blog/tags/#Kubernetes" title="Kubernetes">Kubernetes</a>
+                            
+                              <a class="tag" href="/blog/tags/#Graphql" title="Graphql">Graphql</a>
                             
                         </div>
-                        <h1>Golang 簡介</h1>
+                        <h1>Prisma on kubernetes</h1>
                         <h2 class="subheading"></h2>
                         <span class="meta">
                             Posted by Jim on
-                            2019-03-14
+                            2018-09-21
                         </span>
                     </div>
                 
@@ -214,8 +216,127 @@
                 col-md-10 col-md-offset-1
                 post-container">
 
-                <h2><span id="簡介">簡介</span></h2>
-<p>Golang 是最近非常火紅的語言，Go的語法很接近C語言，但是由獨特的變數宣告方式，也有支援ggarbage collection，雖然沒有列舉、繼承或泛型等，</p>
+                <h2><span id="原因">原因</span></h2>
+<p>最近發現Kompose想說是否可以無痛轉換Docker-Compose成kubernetes，並且也在測試Pisma的Graphql，想說就混再一起玩好了。</p>
+<p>Prisma 是個快速上手至Graphql的deploy tool，然而Prisma目前只是支援Docker compose，這次就使用<a href="https://github.com/kubernetes/kompose" target="_blank" rel="noopener">Kompose</a>來轉換kubernetes 所需要使用的yaml。</p>
+<h2><span id="prisma">Prisma</span></h2>
+<h3><span id="prisma-installation">Prisma Installation</span></h3>
+<pre><code>$ npm install -g prisma
+</code></pre>
+<p>建立新的專案名稱graphql-psql-k8s，並且選擇postgresql作為database</p>
+<pre><code>$ prisma init graphql-psql-k8s
+You can set up Prisma for local development (based on docker-compose)
+ Use existing database Connect to existing database
+❯ Create new database Set up a local database using Docker
+? What kind of database do you want to deploy to?
+ MySQL MySQL compliant databases like MySQL or MariaDB
+❯ PostgreSQL PostgreSQL database
+Created 3 new files:
+prisma.yml Prisma service definition
+ datamodel.graphql GraphQL SDL-based datamodel (foundation for database)
+ docker-compose.yml Docker configuration file
+Next steps:
+ 1. Open folder: cd graphql-psql-k8s
+ 2. Start your Prisma server: docker-compose up -d
+ 3. Deploy your Prisma service: prisma deploy
+ 4. Read more about Prisma server:
+</code></pre>
+<p>建置完成後會產生三個檔案</p>
+<pre><code>datamodel.graphql  :跟postgresql連結的datamodel
+docker-compose.yml :這是要轉換給kubernete用的docker-compose設定檔
+prisma.yml         :用於deploy datamodel
+</code></pre>
+<p><a href="http://bit.ly/prisma-server-overview" target="_blank" rel="noopener">http://bit.ly/prisma-server-overview</a></p>
+<h2><span id="install-kompose">install kompose</span></h2>
+<p>下載Kompose github release version</p>
+<pre><code>curl -L https://github.com/kubernetes/kompose/releases/download/v1.15.0/kompose-linux-amd64 -o kompose
+chmod +x kompose
+sudo mv ./kompose /usr/local/bin/kompose
+</code></pre>
+<p>接著下指令轉換docker-compose to kubernetes</p>
+<pre><code>$ mkdir k8s
+$ kompose convert -f docker-compose.yml -o k8s
+INFO Kubernetes file “k8s/prisma-service.yaml” created
+INFO Kubernetes file “k8s/postgres-deployment.yaml” created
+INFO Kubernetes file “k8s/postgres-persistentvolumeclaim.yaml” created
+INFO Kubernetes file “k8s/prisma-deployment.yaml” created
+</code></pre>
+<p>由於轉換完後，需要將prisma server 倒出成NodePort的service，以讓使用者連接，所以必須修改 k8s/prisma-service.yaml</p>
+<pre><code>apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    kompose.cmd: kompose convert -f docker-compose.yml -o k8s/
+    kompose.version: 1.15.0 (e3cd4d4)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: prisma
+  name: prisma
+spec:
+  type: NodePort
+  ports:
+  - name: &quot;4466&quot;
+    nodePort: 30432
+    protocol: TCP
+    port: 4466
+    targetPort: 4466
+  selector:
+    io.kompose.service: prisma
+status:
+  loadBalancer: {}
+</code></pre>
+<p>並且增加PostgreSQL的service，讓Prisma Service知道要如何去連接PostgreSQL</p>
+<pre><code>apiVersion: v1
+kind: Service
+metadata:
+  name: postgres
+spec:
+  type: ClusterIP
+  ports:
+  - name: &quot;5432&quot;
+    port: 5432
+    targetPort: 5432
+  selector:
+    io.kompose.service: postgres
+status:
+  loadBalancer: {}
+</code></pre>
+<h2><span id="prepare-kubernetes">Prepare Kubernetes</span></h2>
+<p>先設定一個namespace prisma,讓所有的service都跑在上面</p>
+<pre><code>$ kubectl create namespace prisma
+$ kubectl config set-context &lt;current-context name&gt; — namespace=prisma 
+Context &lt;current-context name&gt; modified.
+</code></pre>
+<p>之後透過kubectl部屬</p>
+<pre><code>$ kubectl create -f ./k8s
+deployment.extensions/postgres created
+persistentvolumeclaim/postgres created
+deployment.extensions/prisma created
+service/postgres created
+service/prisma created
+</code></pre>
+<p>當所有的services跑完後便可以在&quot;kubernetes ip&quot;:&quot;prismanode port&quot;看到graphql Playground</p>
+<p><img src="https://i.imgur.com/sDxlgAP.png" alt=""></p>
+<h2><span id="verification">Verification</span></h2>
+<p>修改 prisma.yaml</p>
+<pre><code>endpoint: http://&lt;kubernetes IP&gt;:&lt;prisma nodePort&gt;
+</code></pre>
+<p>之後deploy datamodel</p>
+<pre><code>$ prisma deploy
+Creating stage default for service default ✔
+Deploying service `default` to stage `default` to server `default` 8.2s
+Changes:
+User (Type)
+ + Created type `User`
+ + Created field `id` of type `GraphQLID!`
+ + Created field `name` of type `String!`
+ + Created field `updatedAt` of type `DateTime!`
+ + Created field `createdAt` of type `DateTime!`
+Applying changes 5.7s
+</code></pre>
+<p>當部屬完成後，便可以在原本的playground看到原本的schama.graphql所定義的User<br>
+<img src="https://i.imgur.com/Iugjs5m.png" alt=""></p>
+<p>這實驗是想要測試Kompose是否可以讓我無痛轉換成kubernetes，還是有些地方需要注意的，像是postgreSQL的service並沒有建立出來，還是需要手動建立，如果在比較大型的專案轉換上還是需要再多加注意。</p>
 
                 
 
@@ -224,12 +345,12 @@
                 <ul class="pager">
                     
                         <li class="previous">
-                            <a href="/blog/2019/05/28/graphql-basic/" data-toggle="tooltip" data-placement="top" title="graphql-basic">&larr; Previous Post</a>
+                            <a href="/blog/2018/10/11/test/" data-toggle="tooltip" data-placement="top" title="test">&larr; Previous Post</a>
                         </li>
                     
                     
                         <li class="next">
-                            <a href="/blog/2018/10/11/test/" data-toggle="tooltip" data-placement="top" title="test">Next Post &rarr;</a>
+                            <a href="/blog/2017/03/18/hexo-theme-beantech/" data-toggle="tooltip" data-placement="top" title="[Hexo] Theme BeanTech">Next Post &rarr;</a>
                         </li>
                     
                 </ul>
@@ -259,7 +380,7 @@
         <div id="toc" class="toc-article">
         <strong class="toc-title">Contents</strong>
         
-          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">簡介</span></a></li></ol>
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">原因</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">Prisma</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">2.1.</span> <span class="toc-nav-text">Prisma Installation</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">install kompose</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">4.</span> <span class="toc-nav-text">Prepare Kubernetes</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">5.</span> <span class="toc-nav-text">Verification</span></a></li></ol>
         
         </div>
       </aside>
@@ -279,7 +400,9 @@
                     <h5><a href="/blog/tags/">FEATURED TAGS</a></h5>
                     <div class="tags">
                        
-                          <a class="tag" href="/blog/tags/#golang" title="golang">golang</a>
+                          <a class="tag" href="/blog/tags/#Kubernetes" title="Kubernetes">Kubernetes</a>
+                        
+                          <a class="tag" href="/blog/tags/#Graphql" title="Graphql">Graphql</a>
                         
                     </div>
                 </section>
@@ -299,8 +422,8 @@
 <script type="text/javascript">
     /* * * CONFIGURATION VARIABLES * * */
     var disqus_shortname = "rmp410558";
-    var disqus_identifier = "http://yoursite-url/2019/03/14/golang/";
-    var disqus_url = "http://yoursite-url/2019/03/14/golang/";
+    var disqus_identifier = "http://yoursite-url/2018/09/21/Prisma-on-kubernetes/";
+    var disqus_url = "http://yoursite-url/2018/09/21/Prisma-on-kubernetes/";
 
     (function() {
         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
