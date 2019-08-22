@@ -69,13 +69,9 @@
 <style type="text/css">
     header.intro-header{
         
-            background-image: url('boat.jpg')
+            background-image: url('kubernetes.jpg')
             /*post*/
         
-    }
-    
-    #signature{
-        background-image: url('/blog/img/signature/BeanTechSign-white.png');
     }
     
 </style>
@@ -216,11 +212,11 @@
                 col-md-10 col-md-offset-1
                 post-container">
 
-                <h2><span id="原因">原因</span></h2>
+                <h2 id="原因">原因</h2>
 <p>最近發現Kompose想說是否可以無痛轉換Docker-Compose成kubernetes，並且也在測試Pisma的Graphql，想說就混再一起玩好了。</p>
 <p>Prisma 是個快速上手至Graphql的deploy tool，然而Prisma目前只是支援Docker compose，這次就使用<a href="https://github.com/kubernetes/kompose" target="_blank" rel="noopener">Kompose</a>來轉換kubernetes 所需要使用的yaml。</p>
-<h2><span id="prisma">Prisma</span></h2>
-<h3><span id="prisma-installation">Prisma Installation</span></h3>
+<h2 id="prisma">Prisma</h2>
+<h3 id="prisma-installation">Prisma Installation</h3>
 <pre><code>$ npm install -g prisma
 </code></pre>
 <p>建立新的專案名稱graphql-psql-k8s，並且選擇postgresql作為database</p>
@@ -246,8 +242,7 @@ Next steps:
 docker-compose.yml :這是要轉換給kubernete用的docker-compose設定檔
 prisma.yml         :用於deploy datamodel
 </code></pre>
-<p><a href="http://bit.ly/prisma-server-overview" target="_blank" rel="noopener">http://bit.ly/prisma-server-overview</a></p>
-<h2><span id="install-kompose">install kompose</span></h2>
+<h2 id="install-kompose">install kompose</h2>
 <p>下載Kompose github release version</p>
 <pre><code>curl -L https://github.com/kubernetes/kompose/releases/download/v1.15.0/kompose-linux-amd64 -o kompose
 chmod +x kompose
@@ -301,7 +296,7 @@ spec:
 status:
   loadBalancer: {}
 </code></pre>
-<h2><span id="prepare-kubernetes">Prepare Kubernetes</span></h2>
+<h2 id="prepare-kubernetes">Prepare Kubernetes</h2>
 <p>先設定一個namespace prisma,讓所有的service都跑在上面</p>
 <pre><code>$ kubectl create namespace prisma
 $ kubectl config set-context &lt;current-context name&gt; — namespace=prisma 
@@ -317,7 +312,7 @@ service/prisma created
 </code></pre>
 <p>當所有的services跑完後便可以在&quot;kubernetes ip&quot;:&quot;prismanode port&quot;看到graphql Playground</p>
 <p><img src="https://i.imgur.com/sDxlgAP.png" alt=""></p>
-<h2><span id="verification">Verification</span></h2>
+<h2 id="verification">Verification</h2>
 <p>修改 prisma.yaml</p>
 <pre><code>endpoint: http://&lt;kubernetes IP&gt;:&lt;prisma nodePort&gt;
 </code></pre>
@@ -350,7 +345,7 @@ Applying changes 5.7s
                     
                     
                         <li class="next">
-                            <a href="/blog/2017/03/18/hexo-theme-beantech/" data-toggle="tooltip" data-placement="top" title="[Hexo] Theme BeanTech">Next Post &rarr;</a>
+                            <a href="/blog/2018/08/18/Azure-create-ubuntu-VM-with-RDP/" data-toggle="tooltip" data-placement="top" title="Azure create ubuntu VM with RDP">Next Post &rarr;</a>
                         </li>
                     
                 </ul>
@@ -375,16 +370,16 @@ Applying changes 5.7s
             <!-- Tabe of Content -->
             <!-- Table of Contents -->
 
-    
-      <aside id="sidebar">
-        <div id="toc" class="toc-article">
-        <strong class="toc-title">Contents</strong>
-        
-          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">原因</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">Prisma</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">2.1.</span> <span class="toc-nav-text">Prisma Installation</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">install kompose</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">4.</span> <span class="toc-nav-text">Prepare Kubernetes</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">5.</span> <span class="toc-nav-text">Verification</span></a></li></ol>
-        
-        </div>
-      </aside>
-    
+  
+    <aside id="sidebar">
+      <div id="toc" class="toc-article">
+      <strong class="toc-title">Contents</strong>
+      
+        <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#原因"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">原因</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#prisma"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">Prisma</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#prisma-installation"><span class="toc-nav-number">2.1.</span> <span class="toc-nav-text">Prisma Installation</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#install-kompose"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">install kompose</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#prepare-kubernetes"><span class="toc-nav-number">4.</span> <span class="toc-nav-text">Prepare Kubernetes</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#verification"><span class="toc-nav-number">5.</span> <span class="toc-nav-text">Verification</span></a></li></ol>
+      
+      </div>
+    </aside>
+  
 
                 
             <!-- Sidebar Container -->
@@ -486,16 +481,16 @@ Applying changes 5.7s
                 
 
                 
-
-                
                     <li>
-                        <a target="_blank"  href="https://github.com/rmp4">
+                        <a target="_blank" href="https://www.facebook.com/100000195714842">
                             <span class="fa-stack fa-lg">
                                 <i class="fa fa-circle fa-stack-2x"></i>
-                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
                             </span>
                         </a>
                     </li>
+                
+
                 
 
                 

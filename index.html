@@ -69,13 +69,9 @@
 <style type="text/css">
     header.intro-header{
         
-            background-image: url('/blog/img/header_img/home-bg-2-dark.png') 
+            background-image: url('/blog/img/header_img/books.jpg') 
             /*config*/
         
-    }
-    
-    #signature{
-        background-image: url('/blog/img/signature/BeanTechSign-white.png');
     }
     
 </style>
@@ -213,56 +209,22 @@
 
 <div class="post-preview">
 
-    <a href="/blog/2019/06/30/AzureDockerimages/">
-        <h2 class="post-title">
-            Azure DevOps auto build docker image fail
-        </h2>
-        <h3 class="post-subtitle">
-            
-        </h3>
-        <div class="post-content-preview">
-            Azure DevOps auto build docker image fail
-最近在使用Azure DevOps CI/CD 時採到一個雷，由於我們在code上傳到Git repository後需要建立docker image並且傳送Azure Container Registry(ACR)給之後的Kubernetes使用,但在使用原生的Docker範例會無法登入ACR Server ......
-        </div>
-    </a>
-    
-        <p class="post-meta" style="margin: 10px 0;">
-            Posted by Jim on
-            2019-06-30
-        </p>
-        <div class="tags">
-            
-              <a href="/blog/tags/#DevOps" title="DevOps">DevOps</a>
-            
-              <a href="/blog/tags/#Docker" title="Docker">Docker</a>
-            
-        </div>
-    
-
-</div>
-<hr>
-
-<div class="post-preview">
-
     <a href="/blog/2019/05/28/graphql-basic/">
         <h2 class="post-title">
-            graphql-basic
+            Graphql-basic
         </h2>
         <h3 class="post-subtitle">
             
         </h3>
         <div class="post-content-preview">
-            394. Decode String
+            Graphql-basic
+graphql 是由Facebook所提出的架構，每一項新的技術應該是要解決現在技術所遇到的問題，graphq是為了解決REST在query大量複雜資料時所遇到的狀況，
 
-Question
-Solution
-Result
-
-Question
-輸入一個編碼後的String 回傳解完碼的String
-編碼的規則為:k[encoded_string],在雙括號內的為編碼值根據k值決定重複次數，且k值為正整數。
-你可以假設輸入進來的字串都為有效字串，不會有額外的空白，括號格式也都會正確等等
-此外你可以假設encoded_stri......
+它的優點是由前端可以決定要拿那些資料，以不同的schema便可以取回不同的資料。
+可以透過
+優點
+有助於提供移動端優先的用戶體驗
+由於移動端應用通常有豐富的 UI 設計同時卻面臨低速的網絡，Gr......
         </div>
     </a>
     
@@ -272,7 +234,7 @@ Question
         </p>
         <div class="tags">
             
-              <a href="/blog/tags/#graphql" title="graphql">graphql</a>
+              <a href="/blog/tags/#Graphql" title="Graphql">Graphql</a>
             
         </div>
     
@@ -303,6 +265,74 @@ Golang 是最近非常火紅的語言，Go的語法很接近C語言，但是由�
         <div class="tags">
             
               <a href="/blog/tags/#golang" title="golang">golang</a>
+            
+        </div>
+    
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/blog/2019/01/30/AzureDockerimages/">
+        <h2 class="post-title">
+            Azure DevOps auto build docker image fail
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+            Azure DevOps auto build docker image fail
+最近在使用Azure DevOps CI/CD 時採到一個雷，由於我們在code上傳到Git repository後需要建立docker image並且傳送Azure Container Registry(ACR)給之後的Kubernetes使用,但在使用原生的Docker範例會無法登入ACR Server ......
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by Jim on
+            2019-01-30
+        </p>
+        <div class="tags">
+            
+              <a href="/blog/tags/#DevOps" title="DevOps">DevOps</a>
+            
+              <a href="/blog/tags/#Docker" title="Docker">Docker</a>
+            
+              <a href="/blog/tags/#Azure" title="Azure">Azure</a>
+            
+        </div>
+    
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/blog/2018/10/22/minikube-on-windows10/">
+        <h2 class="post-title">
+            在windows 10底下建立 minikube
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+            Requirements
+在windows command prompt底下輸入
+systeminfo
+
+如果看到以下輸出，則Windows支持虛擬化。
+Hyper-V Requirements:     VM Monitor Mode Extensions: Yes
+                      Virtualization Enabled In Firmware: Yes
+......
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by Jim on
+            2018-10-22
+        </p>
+        <div class="tags">
+            
+              <a href="/blog/tags/#Kubernetes" title="Kubernetes">Kubernetes</a>
             
         </div>
     
@@ -380,6 +410,67 @@ Prisma ......
 
 <div class="post-preview">
 
+    <a href="/blog/2018/08/18/Azure-create-ubuntu-VM-with-RDP/">
+        <h2 class="post-title">
+            Azure create ubuntu VM with RDP
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+            Azure create ubuntu VM with RDP
+why to that
+在Azure 開啟Windows 10 VM系統內建遠端連線功能，但是在Azure marketplace上只有Service版本的Linux可以做選擇，我想製作一台小型的機器，讓我在工作和家裡都可以透過這台機器，Access 一些我平常在用的系統 如AKS 或者是Azure pipline。
+為了達到這......
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by Jim on
+            2018-08-18
+        </p>
+        <div class="tags">
+            
+              <a href="/blog/tags/#Azure" title="Azure">Azure</a>
+            
+        </div>
+    
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/blog/2018/08/18/kubespray-deploy-kubernetes/">
+        <h2 class="post-title">
+            Kubespray deploy Kubernetes v1.11 cluster
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+            Kubespray deploy Kubernetes v1.11 cluster
+Kubespray 是 Kubernetes incubator 中的專案，目標是提供 Production Ready Kubernetes 部署方案，該專案基礎是透過 Ansible Playbook 來定義系統與 Kubernetes 叢集部署的任務，目前 Kubespray 有以下幾個特點：
+可以部署......
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by Jim on
+            2018-08-18
+        </p>
+        <div class="tags">
+            
+              <a href="/blog/tags/#Kubernetes" title="Kubernetes">Kubernetes</a>
+            
+        </div>
+    
+
+</div>
+<hr>
+
+<div class="post-preview">
+
     <a href="/blog/2017/03/18/hexo-theme-beantech/">
         <h2 class="post-title">
             [Hexo] Theme BeanTech
@@ -392,12 +483,12 @@ Prisma ......
 Ported Theme of Hux Blog, Thank Huxpro for designing such a flawless theme.
 This BeanTech theme created by YuHsuan modified from the original Porter Kaijun
 
-
+Live Demo
 
 
 Usage
 
-I publish the whole project f......
+I publish the whole ......
         </div>
     </a>
     
@@ -463,16 +554,16 @@ I publish the whole project f......
             
 
             
-
-            
                 <li>
-                    <a target="_blank"  href="https://github.com/rmp4">
+                    <a target="_blank" href="https://www.facebook.com/100000195714842">
                         <span class="fa-stack fa-lg">
                             <i class="fa fa-circle fa-stack-2x"></i>
-                            <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
                         </span>
                     </a>
                 </li>
+            
+
             
             
             
@@ -497,11 +588,7 @@ I publish the whole project f......
     <ul>
       
         <li>
-          <a href="2019/06/30/AzureDockerimages/">Azure DevOps auto build docker image fail</a>
-        </li>
-      
-        <li>
-          <a href="2019/05/28/graphql-basic/">graphql-basic</a>
+          <a href="2019/05/28/graphql-basic/">Graphql-basic</a>
         </li>
       
         <li>
@@ -509,11 +596,15 @@ I publish the whole project f......
         </li>
       
         <li>
-          <a href="2018/10/11/test/">test</a>
+          <a href="2019/01/30/AzureDockerimages/">Azure DevOps auto build docker image fail</a>
         </li>
       
         <li>
-          <a href="2018/09/21/Prisma-on-kubernetes/">Prisma on kubernetes</a>
+          <a href="2018/10/22/minikube-on-windows10/">在windows 10底下建立 minikube</a>
+        </li>
+      
+        <li>
+          <a href="2018/10/11/test/">test</a>
         </li>
       
     </ul>
@@ -546,16 +637,16 @@ I publish the whole project f......
                 
 
                 
-
-                
                     <li>
-                        <a target="_blank"  href="https://github.com/rmp4">
+                        <a target="_blank" href="https://www.facebook.com/100000195714842">
                             <span class="fa-stack fa-lg">
                                 <i class="fa fa-circle fa-stack-2x"></i>
-                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
                             </span>
                         </a>
                     </li>
+                
+
                 
 
                 

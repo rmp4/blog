@@ -14,7 +14,7 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <title>
         
-          graphql-basic - 休息是因為不想再走路
+          Graphql-basic - 休息是因為不想再走路
         
     </title>
 
@@ -74,10 +74,6 @@
         
     }
     
-    #signature{
-        background-image: url('/blog/img/signature/BeanTechSign-white.png');
-    }
-    
 </style>
 
 <header class="intro-header" >
@@ -90,10 +86,10 @@
                     <div class="post-heading">
                         <div class="tags">
                             
-                              <a class="tag" href="/blog/tags/#graphql" title="graphql">graphql</a>
+                              <a class="tag" href="/blog/tags/#Graphql" title="Graphql">Graphql</a>
                             
                         </div>
-                        <h1>graphql-basic</h1>
+                        <h1>Graphql-basic</h1>
                         <h2 class="subheading"></h2>
                         <span class="meta">
                             Posted by Jim on
@@ -214,30 +210,38 @@
                 col-md-10 col-md-offset-1
                 post-container">
 
-                <h1><span id="394-decode-string">394. Decode String</span></h1>
-<ul>
-<li><a href="#Question">Question</a></li>
-<li><a href="#Solution">Solution</a></li>
-<li><a href="#Result">Result</a></li>
-</ul>
-<h2><span id="question">Question</span></h2>
-<p>輸入一個編碼後的String 回傳解完碼的String<br>
-編碼的規則為:k[encoded_string],在雙括號內的為編碼值根據k值決定重複次數，且k值為正整數。</p>
-<p>你可以假設輸入進來的字串都為有效字串，不會有額外的空白，括號格式也都會正確等等</p>
-<p>此外你可以假設encoded_string不包含任何數字，唯一的數字只有用在repeat值使用，不會有像是3a or 2[4]的狀況</p>
-<h2><span id="solution">Solution</span></h2>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<h2><span id="result">Result</span></h2>
+                <h1 id="graphql-basic">Graphql-basic</h1>
+<p>graphql 是由Facebook所提出的架構，每一項新的技術應該是要解決現在技術所遇到的問題，graphq是為了解決REST在query大量複雜資料時所遇到的狀況，<br>
+<img src="https://i.imgur.com/1PSvBut.png" alt=""></p>
+<p>它的優點是由前端可以決定要拿那些資料，以不同的schema便可以取回不同的資料。</p>
+<p>可以透過</p>
+<p>優點<br>
+有助於提供移動端優先的用戶體驗<br>
+由於移動端應用通常有豐富的 UI 設計同時卻面臨低速的網絡，GraphQL 可以幫你只加載目標相關的數據從而不影響用戶體驗（註：原文為開發體驗，可能是筆誤）。</p>
+<p>有助於處理複雜的數據 Schema<br>
+由於現代應用隨著豐富的交互體驗變得越來越複雜，需求已經遠超過了基於 REST 做 CRUD 的 API 所能提供的，但 GraphQL 可以允許你把不同資源的數據結合起來。</p>
+<p>作為微服務編排方案<br>
+GraphQL，特別是 Apollo Server，提供了許多特性來隱藏對客戶端而言的後端複雜度。</p>
+<p>給你的團隊帶來更好的開發體驗<br>
+GraphQL 不僅僅是一種查詢數據的新方式，它也增強了團隊裡前端、移動端、後端協作的方式。</p>
+<p>GraphQL 還通過使加載和處理數據變得更簡單，促進了豐富的 UX 的創造。</p>
+<p>缺點<br>
+以基於流行度作為理由而決定使用一項技術是不夠充分的<br>
+因為技術總是為瞭解決一個或幾個特定的的問題，流行度從來不足以驗證技術選擇的正確性。</p>
+<p>GraphQL 並不能開箱即用地解決所有的性能問題<br>
+GraphQL 不是一個性能優化工具，你仍需要負責去做性能的改進。</p>
+<p>GraphQL 不是 REST 也不會取代 REST<br>
+GraphQL 和 REST 是兩種不同的東西，他們在網絡技術領域各有用武之地。</p>
+<p>GraphQL 不能解決所有的問題<br>
+GraphQL 能幫你構建豐富的移動端或者 Web 客戶端應用。</p>
+<p>它也可以幫你改進數據相關的後端 - 像索引工作。</p>
+<p>但給不了你全部。</p>
 
                 
 
                 <hr>
                 <!-- Pager -->
                 <ul class="pager">
-                    
-                        <li class="previous">
-                            <a href="/blog/2019/06/30/AzureDockerimages/" data-toggle="tooltip" data-placement="top" title="Azure DevOps auto build docker image fail">&larr; Previous Post</a>
-                        </li>
                     
                     
                         <li class="next">
@@ -266,16 +270,16 @@
             <!-- Tabe of Content -->
             <!-- Table of Contents -->
 
-    
-      <aside id="sidebar">
-        <div id="toc" class="toc-article">
-        <strong class="toc-title">Contents</strong>
-        
-          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">394. Decode String</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">1.1.</span> <span class="toc-nav-text">Question</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">1.2.</span> <span class="toc-nav-text">Solution</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">1.3.</span> <span class="toc-nav-text">Result</span></a></li></ol></li></ol>
-        
-        </div>
-      </aside>
-    
+  
+    <aside id="sidebar">
+      <div id="toc" class="toc-article">
+      <strong class="toc-title">Contents</strong>
+      
+        <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#graphql-basic"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">Graphql-basic</span></a></li></ol>
+      
+      </div>
+    </aside>
+  
 
                 
             <!-- Sidebar Container -->
@@ -291,7 +295,7 @@
                     <h5><a href="/blog/tags/">FEATURED TAGS</a></h5>
                     <div class="tags">
                        
-                          <a class="tag" href="/blog/tags/#graphql" title="graphql">graphql</a>
+                          <a class="tag" href="/blog/tags/#Graphql" title="Graphql">Graphql</a>
                         
                     </div>
                 </section>
@@ -375,16 +379,16 @@
                 
 
                 
-
-                
                     <li>
-                        <a target="_blank"  href="https://github.com/rmp4">
+                        <a target="_blank" href="https://www.facebook.com/100000195714842">
                             <span class="fa-stack fa-lg">
                                 <i class="fa fa-circle fa-stack-2x"></i>
-                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
                             </span>
                         </a>
                     </li>
+                
+
                 
 
                 

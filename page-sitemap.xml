@@ -7,22 +7,22 @@
     </url>
     
     <url>
-        <loc>http://yoursite-url/about/</loc>
-        <lastmod>2019-07-21T13:54:52.470Z</lastmod>
+        <loc>http://yoursite-url/archive/</loc>
+        <lastmod>2019-07-21T14:36:06.411Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
     
     <url>
         <loc>http://yoursite-url/tags/</loc>
-        <lastmod>2018-10-13T06:09:20.156Z</lastmod>
+        <lastmod>2019-07-21T14:33:56.810Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
     
     <url>
-        <loc>http://yoursite-url/archive/</loc>
-        <lastmod>2018-10-13T06:09:20.103Z</lastmod>
+        <loc>http://yoursite-url/about/</loc>
+        <lastmod>2019-07-21T13:54:52.470Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>

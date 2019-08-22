@@ -14,11 +14,11 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <title>
         
-          Azure DevOps auto build docker image fail - 休息是因為不想再走路
+          Azure create ubuntu VM with RDP - 休息是因為不想再走路
         
     </title>
 
-    <link rel="canonical" href="http://yoursite-url/blog/2019/06/30/AzureDockerimages/">
+    <link rel="canonical" href="http://yoursite-url/blog/2018/08/18/Azure-create-ubuntu-VM-with-RDP/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="../../../../css/bootstrap.min.css">
@@ -74,10 +74,6 @@
         
     }
     
-    #signature{
-        background-image: url('/blog/img/signature/BeanTechSign-white.png');
-    }
-    
 </style>
 
 <header class="intro-header" >
@@ -90,16 +86,14 @@
                     <div class="post-heading">
                         <div class="tags">
                             
-                              <a class="tag" href="/blog/tags/#DevOps" title="DevOps">DevOps</a>
-                            
-                              <a class="tag" href="/blog/tags/#Docker" title="Docker">Docker</a>
+                              <a class="tag" href="/blog/tags/#Azure" title="Azure">Azure</a>
                             
                         </div>
-                        <h1>Azure DevOps auto build docker image fail</h1>
+                        <h1>Azure create ubuntu VM with RDP</h1>
                         <h2 class="subheading"></h2>
                         <span class="meta">
                             Posted by Jim on
-                            2019-06-30
+                            2018-08-18
                         </span>
                     </div>
                 
@@ -216,18 +210,264 @@
                 col-md-10 col-md-offset-1
                 post-container">
 
-                <h1><span id="azure-devops-auto-build-docker-image-fail">Azure DevOps auto build docker image fail</span></h1>
-<p>最近在使用Azure DevOps CI/CD 時採到一個雷，由於我們在code上傳到Git repository後需要建立docker image並且傳送Azure Container Registry(ACR)給之後的Kubernetes使用,但在使用原生的Docker範例會無法登入ACR Server 導致之後編譯好的image無法上傳。<br>
-:::danger<br>
-Using --password via the CLI is insecure. Use --password-stdin.<br>
-:::</p>
-<p>但這應該已經是Docker的老問題了，他們也寫在<a href="https://docs.docker.com/engine/reference/commandline/login/#provide-a-password-using-stdin" target="_blank" rel="noopener">Document</a>裡<br>
-:::warning<br>
-To run the docker login command non-interactively, you can set the  --password-stdin flag to provide a password through STDIN. Using STDIN prevents the password from ending up in the shell’s history, or log-files.<br>
-:::</p>
-<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker login -u <span class="variable">$(</span>dockerId) -p <span class="variable">$(</span>pswd) &lt;docker-registry-url&gt;</span><br></pre></td></tr></table></figure>
-<p>改成使用下面指令後便可以登入</p>
-<figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">echo</span> $<span class="params">(pswd)</span> | docker login <span class="params">--username</span> $<span class="params">(dockerId)</span> <span class="params">--password-stdin</span> $<span class="params">(dockerId)</span><span class="string">.azurecr.io</span> <span class="params">--password-stdin</span></span><br></pre></td></tr></table></figure>
+                <h1 id="azure-create-ubuntu-vm-with-rdp">Azure create ubuntu VM with RDP</h1>
+<h2 id="why-to-that">why to that</h2>
+<p>在Azure 開啟Windows 10 VM系統內建遠端連線功能，但是在Azure marketplace上只有Service版本的Linux可以做選擇，我想製作一台小型的機器，讓我在工作和家裡都可以透過這台機器，Access 一些我平常在用的系統 如AKS 或者是Azure pipline。</p>
+<p>為了達到這方式其實目前有兩種做法，<br>
+1.官方所提供的<a href="https://docs.microsoft.com/zh-tw/azure/virtual-machines/linux/use-remote-desktop" target="_blank" rel="noopener">範例</a>，透過安裝xrdp跟xfce4，來達到xfce4的remote desktop<br>
+2.在Ubuntu Service上安裝Desktop並透過xrdp來進行遠端連線。</p>
+<p>這次我使用第二種來測試，雖然效能可能會差了些，但大部分的操作還是透過ssh，只是有在小部分修改會使用到remote desktop，所以盡可能讓操作體驗一致。</p>
+<h2 id="環境">環境</h2>
+<pre><code>Ubuntu 16.04 server
+</code></pre>
+<h2 id="建立vm">建立VM</h2>
+<h2 id="安裝desktop">安裝Desktop</h2>
+<pre><code>sudo apt-get update
+sudo apt-get install ubuntu-desktop
+</code></pre>
+<p><img src="https://i.imgur.com/U2xUSTJ.png" alt=""></p>
+<p>根據這個<a href="http://c-nergy.be/blog/?p=10993" target="_blank" rel="noopener">blog</a>所寫的install xrdp script</p>
+<pre><code>################################################################
+# Script_Name : install-xrdp-1.9.1.sh
+# Description : Perform an automated custom installation of xrdp
+# on ubuntu 16.04.3
+# Date : August 2017
+# written by : Griffon
+# Web Site :http://www.c-nergy.be - http://www.c-nergy.be/blog
+# Version : 1.9
+# Disclaimer : Script provided AS IS. Use it at your own risk....
+##################################################################
+
+#---------------------------------------------------#
+# Step 0 - Try to Detect Ubuntu Version.... 
+#---------------------------------------------------#
+echo
+/bin/echo -e &quot;\e[1;32m!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\e[0m&quot; 
+/bin/echo -e &quot;\e[1;32m Dectecting Ubuntu Version and Desktop in use...\e[0m&quot;
+/bin/echo -e &quot;\e[1;32m!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\e[0m&quot;
+
+version=$(lsb_release -d | awk -F&quot;:&quot; '/Description/ {print $2}')
+
+if [[ $version=*&quot;Ubuntu 16.04&quot;* ]]; then 
+echo 
+/bin/echo -e &quot;\e[1;37mSupported version detected....proceeding\e[0m&quot; 
+/bin/echo -e &quot;\e[1;37mUbuntu Version :$version\e[0m&quot; 
+echo
+else 
+/bin/echo -e &quot;\e[1;31m!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\e[0m&quot; 
+/bin/echo -e &quot;\e[1;31mYour system is not running Ubuntu 16.04 Edition.\e[0m&quot; 
+/bin/echo -e &quot;\e[1;31mThe script has been tested only on Ubuntu 16.04.x...\e[0m&quot; 
+/bin/echo -e &quot;\e[1;31mThe script is exiting...\e[0m&quot; 
+/bin/echo -e &quot;\e[1;31m!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\e[0m&quot; 
+echo
+exit 
+fi
+
+#Checking if Unity Desktop in Use
+
+if [ &quot;$XDG_CURRENT_DESKTOP&quot;=&quot;Unity&quot; ] 
+then 
+echo
+/bin/echo -e &quot;\e[1;37mUnity Desktop interface Detected....proceeding\e[0m&quot; 
+echo 
+else 
+/bin/echo -e &quot;\e[1;31m!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\e[0m&quot; 
+/bin/echo -e &quot;\e[1;31mYour system is not running Unity Desktop Interface.\e[0m&quot; 
+/bin/echo -e &quot;\e[1;31mThe script has been written to enable Unity Desktop in remote session...\e[0m&quot; 
+/bin/echo -e &quot;\e[1;31mThe script is exiting...\e[0m&quot;
+/bin/echo -e &quot;\e[1;31m!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\e[0m&quot;
+exit 
+fi
+
+
+#---------------------------------------------------#
+# Step 1 - Download XRDP Binaries... 
+#---------------------------------------------------#
+
+sudo apt-get -y install git
+cd ~/Downloads
+
+## -- Download the xrdp latest files
+/bin/echo -e &quot;\e[1;32mPreparing download xrdp package\e[0m&quot;
+/bin/echo -e &quot;\e[1;32m-------------------------------\e[0m&quot;
+echo
+git clone https://github.com/neutrinolabs/xrdp.git
+/bin/echo -e &quot;\e[1;32mPreparing download xorgxrdp package\e[0m&quot;
+/bin/echo -e &quot;\e[1;32m-----------------------------------\e[0m&quot;
+echo
+git clone https://github.com/neutrinolabs/xorgxrdp.git
+
+#---------------------------------------------------#
+# Step 2 - Install Prereqs... 
+#---------------------------------------------------#
+
+/bin/echo -e &quot;\e[1;32mInstall PreReqs\e[0m&quot;
+/bin/echo -e &quot;\e[1;32m-----------------------------------\e[0m&quot;
+echo
+sudo apt-get -y install libx11-dev libxfixes-dev libssl-dev libpam0g-dev libtool libjpeg-dev flex bison gettext autoconf libxml-parser-perl libfuse-dev xsltproc libxrandr-dev python-libxml2 nasm xserver-xorg-dev fuse
+
+#---------------------------------------------------#
+# Step 3 - create the fontutil.h file... 
+#---------------------------------------------------#
+
+/bin/echo -e &quot;\e[1;32mIntegrating fix for fontutil bug in ubuntu\e[0m&quot;
+/bin/echo -e &quot;\e[1;32m--------------------------------------------\e[0m&quot;
+echo
+cat &gt;/usr/include/X11/fonts/fontutil.h &lt;&lt;EOF
+#ifndef _FONTUTIL_H_
+#define _FONTUTIL_H_
+
+#include &lt;X11/fonts/FSproto.h&gt;
+
+extern int FontCouldBeTerminal(FontInfoPtr);
+extern int CheckFSFormat(fsBitmapFormat, fsBitmapFormatMask, int *, int *,
+     int *, int *, int *);
+extern void FontComputeInfoAccelerators(FontInfoPtr);
+extern void GetGlyphs ( FontPtr font, unsigned long count,    
+             unsigned char *chars, FontEncoding fontEncoding,    
+             unsigned long *glyphcount, CharInfoPtr *glyphs );
+extern void QueryGlyphExtents ( FontPtr pFont, CharInfoPtr *charinfo,    
+            unsigned long count, ExtentInfoRec *info );
+extern Bool QueryTextExtents ( FontPtr pFont, unsigned long count,          
+            unsigned char *chars, ExtentInfoRec *info );
+extern Bool ParseGlyphCachingMode ( char *str );
+extern void InitGlyphCaching ( void );
+extern void SetGlyphCachingMode ( int newmode );
+extern int add_range ( fsRange *newrange, int *nranges, fsRange **range,
+          Bool charset_subset );
+
+#endif /* _FONTUTIL_H_ */
+EOF
+
+#---------------------------------------------------#
+# Step 4 - compiling... 
+#---------------------------------------------------#
+
+# -- Compiling xrdp package first
+
+echo
+/bin/echo -e &quot;\e[1;32m-----------------------------------\e[0m&quot;
+/bin/echo -e &quot;\e[1;32mXRDP Compilation about to start ! \e[0m&quot;
+/bin/echo -e &quot;\e[1;32m-----------------------------------\e[0m&quot;
+echo
+
+cd ~/Downloads/xrdp
+sudo ./bootstrap
+sudo ./configure --enable-fuse --enable-jpeg 
+sudo make
+
+#-- check if no error during compilation
+
+if [ $? -eq 0 ]
+then 
+echo
+/bin/echo -e &quot;\e[1;32m-----------------------------------\e[0m&quot;
+/bin/echo -e &quot;\e[1;32mMake Operation Successful ! \e[0m&quot;
+/bin/echo -e &quot;\e[1;32m-----------------------------------\e[0m&quot;
+echo
+else 
+echo
+/bin/echo -e &quot;\e[1;31m!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\e[0m&quot;
+/bin/echo -e &quot;\e[1;31mError while executing make.\e[0m&quot;
+/bin/echo -e &quot;\e[1;31mThe script is exiting...\e[0m&quot;
+/bin/echo -e &quot;\e[1;31m!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\e[0m&quot;
+echo
+exit
+fi
+sudo make install
+
+# -- Compiling xorgxrdp package first
+
+echo
+/bin/echo -e &quot;\e[1;32m-----------------------------------\e[0m&quot;
+/bin/echo -e &quot;\e[1;32mxorgxrdp Compilation about to start ! \e[0m&quot;
+/bin/echo -e &quot;\e[1;32m-----------------------------------\e[0m&quot;
+echo
+cd ~/Downloads/xorgxrdp 
+sudo ./bootstrap 
+sudo ./configure 
+sudo make
+
+# check if no error during compilation 
+if [ $? -eq 0 ]
+then 
+echo
+/bin/echo -e &quot;\e[1;32m-----------------------------------\e[0m&quot;
+/bin/echo -e &quot;\e[1;32mMake Operation Successful ! \e[0m&quot;
+/bin/echo -e &quot;\e[1;32m-----------------------------------\e[0m&quot;
+echo
+else 
+/bin/echo -e &quot;\e[1;31m!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\e[0m&quot;
+/bin/echo -e &quot;\e[1;31mError while executing make.\e[0m&quot;
+/bin/echo -e &quot;\e[1;31mThe script is exiting...\e[0m&quot;
+/bin/echo -e &quot;\e[1;31m!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\e[0m&quot;
+echo
+exit
+fi
+sudo make install
+
+#---------------------------------------------------#
+# Step 5 - create policies exceptions .... 
+#---------------------------------------------------#
+
+cat &gt;/etc/polkit-1/localauthority.conf.d/02-allow-colord.conf &lt;&lt;EOF
+polkit.addRule(function(action, subject) {
+if ((action.id == “org.freedesktop.color-manager.create-device” ||
+action.id == “org.freedesktop.color-manager.create-profile” ||
+action.id == “org.freedesktop.color-manager.delete-device” ||
+action.id == “org.freedesktop.color-manager.delete-profile” ||
+action.id == “org.freedesktop.color-manager.modify-device” ||
+action.id == “org.freedesktop.color-manager.modify-profile”) &amp;&amp;
+subject.isInGroup(“{group}”)) {
+return polkit.Result.YES;
+}
+});
+EOF
+
+#---------------------------------------------------#
+# Step 6 - configure Xwrapper file .... 
+#---------------------------------------------------#
+
+sudo sed -i 's/allowed_users=console/allowed_users=anybody/' /etc/X11/Xwrapper.config
+
+#---------------------------------------------------#
+# Step 7 - Populate the .xsession file .... 
+#---------------------------------------------------#
+cat &gt;~/.xsession &lt;&lt; EOF
+/usr/lib/gnome-session/gnome-session-binary --session=ubuntu &amp;
+/usr/lib/x86_64-linux-gnu/unity/unity-panel-service &amp;
+/usr/lib/unity-settings-daemon/unity-settings-daemon &amp;
+for indicator in /usr/lib/x86_64-linux-gnu/indicator-*; 
+do
+basename='basename \${indicator}' 
+dirname='dirname \${indicator}' 
+service=\${dirname}/\${basename}/\${basename}-service 
+\${service} &amp;
+done
+unity
+EOF
+
+#---------------------------------------------------#
+# Step 8 - create services .... 
+#---------------------------------------------------#
+sudo systemctl daemon-reload
+sudo systemctl enable xrdp.service
+sudo systemctl enable xrdp-sesman.service
+sudo systemctl start xrdp
+
+#---------------------------------------------------#
+# Step 9 - install additional pacakge .... 
+#---------------------------------------------------#
+
+sudo apt-get -y install xserver-xorg-core
+
+/bin/echo -e &quot;\e[1;32m----------------------------------------------------------\e[0m&quot;
+/bin/echo -e &quot;\e[1;32mInstallation Completed\e[0m&quot;
+/bin/echo -e &quot;\e[1;32mPlease test your xRDP configuration....\e[0m&quot;
+/bin/echo -e &quot;\e[1;32mCheck c-nergy.be website for latest version of the script\e[0m&quot;
+/bin/echo -e &quot;\e[1;32mwritten by Griffon - August 2017 - Version 1.9.1\e[0m&quot;
+/bin/echo -e &quot;\e[1;32m----------------------------------------------------------\e[0m&quot;
+echo</code></pre>
 
                 
 
@@ -235,9 +475,13 @@ To run the docker login command non-interactively, you can set the  --password-s
                 <!-- Pager -->
                 <ul class="pager">
                     
+                        <li class="previous">
+                            <a href="/blog/2018/09/21/Prisma-on-kubernetes/" data-toggle="tooltip" data-placement="top" title="Prisma on kubernetes">&larr; Previous Post</a>
+                        </li>
+                    
                     
                         <li class="next">
-                            <a href="/blog/2019/05/28/graphql-basic/" data-toggle="tooltip" data-placement="top" title="graphql-basic">Next Post &rarr;</a>
+                            <a href="/blog/2018/08/18/kubespray-deploy-kubernetes/" data-toggle="tooltip" data-placement="top" title="Kubespray deploy Kubernetes v1.11 cluster">Next Post &rarr;</a>
                         </li>
                     
                 </ul>
@@ -262,16 +506,16 @@ To run the docker login command non-interactively, you can set the  --password-s
             <!-- Tabe of Content -->
             <!-- Table of Contents -->
 
-    
-      <aside id="sidebar">
-        <div id="toc" class="toc-article">
-        <strong class="toc-title">Contents</strong>
-        
-          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">Azure DevOps auto build docker image fail</span></a></li></ol>
-        
-        </div>
-      </aside>
-    
+  
+    <aside id="sidebar">
+      <div id="toc" class="toc-article">
+      <strong class="toc-title">Contents</strong>
+      
+        <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#azure-create-ubuntu-vm-with-rdp"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">Azure create ubuntu VM with RDP</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#why-to-that"><span class="toc-nav-number">1.1.</span> <span class="toc-nav-text">why to that</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#環境"><span class="toc-nav-number">1.2.</span> <span class="toc-nav-text">環境</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#建立vm"><span class="toc-nav-number">1.3.</span> <span class="toc-nav-text">建立VM</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#安裝desktop"><span class="toc-nav-number">1.4.</span> <span class="toc-nav-text">安裝Desktop</span></a></li></ol></li></ol>
+      
+      </div>
+    </aside>
+  
 
                 
             <!-- Sidebar Container -->
@@ -287,9 +531,7 @@ To run the docker login command non-interactively, you can set the  --password-s
                     <h5><a href="/blog/tags/">FEATURED TAGS</a></h5>
                     <div class="tags">
                        
-                          <a class="tag" href="/blog/tags/#DevOps" title="DevOps">DevOps</a>
-                        
-                          <a class="tag" href="/blog/tags/#Docker" title="Docker">Docker</a>
+                          <a class="tag" href="/blog/tags/#Azure" title="Azure">Azure</a>
                         
                     </div>
                 </section>
@@ -309,8 +551,8 @@ To run the docker login command non-interactively, you can set the  --password-s
 <script type="text/javascript">
     /* * * CONFIGURATION VARIABLES * * */
     var disqus_shortname = "rmp410558";
-    var disqus_identifier = "http://yoursite-url/2019/06/30/AzureDockerimages/";
-    var disqus_url = "http://yoursite-url/2019/06/30/AzureDockerimages/";
+    var disqus_identifier = "http://yoursite-url/2018/08/18/Azure-create-ubuntu-VM-with-RDP/";
+    var disqus_url = "http://yoursite-url/2018/08/18/Azure-create-ubuntu-VM-with-RDP/";
 
     (function() {
         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
@@ -373,16 +615,16 @@ To run the docker login command non-interactively, you can set the  --password-s
                 
 
                 
-
-                
                     <li>
-                        <a target="_blank"  href="https://github.com/rmp4">
+                        <a target="_blank" href="https://www.facebook.com/100000195714842">
                             <span class="fa-stack fa-lg">
                                 <i class="fa fa-circle fa-stack-2x"></i>
-                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
                             </span>
                         </a>
                     </li>
+                
+
                 
 
                 

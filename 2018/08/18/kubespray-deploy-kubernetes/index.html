@@ -14,11 +14,11 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <title>
         
-          [Hexo] Theme BeanTech - 休息是因為不想再走路
+          Kubespray deploy Kubernetes v1.11 cluster - 休息是因為不想再走路
         
     </title>
 
-    <link rel="canonical" href="http://yoursite-url/blog/2017/03/18/hexo-theme-beantech/">
+    <link rel="canonical" href="http://yoursite-url/blog/2018/08/18/kubespray-deploy-kubernetes/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="../../../../css/bootstrap.min.css">
@@ -69,7 +69,7 @@
 <style type="text/css">
     header.intro-header{
         
-            background-image: url('Demo.png')
+            background-image: url('kubernetes.jpg')
             /*post*/
         
     }
@@ -86,16 +86,14 @@
                     <div class="post-heading">
                         <div class="tags">
                             
-                              <a class="tag" href="/blog/tags/#Hexo" title="Hexo">Hexo</a>
-                            
-                              <a class="tag" href="/blog/tags/#Blog" title="Blog">Blog</a>
+                              <a class="tag" href="/blog/tags/#Kubernetes" title="Kubernetes">Kubernetes</a>
                             
                         </div>
-                        <h1>[Hexo] Theme BeanTech</h1>
-                        <h2 class="subheading">This is hexo theme Demo.</h2>
+                        <h1>Kubespray deploy Kubernetes v1.11 cluster</h1>
+                        <h2 class="subheading"></h2>
                         <span class="meta">
                             Posted by Jim on
-                            2017-03-18
+                            2018-08-18
                         </span>
                     </div>
                 
@@ -212,60 +210,136 @@
                 col-md-10 col-md-offset-1
                 post-container">
 
-                <blockquote>
-<p>Ported Theme of <a href="https://github.com/Huxpro/huxpro.github.io" target="_blank" rel="noopener">Hux Blog</a>, Thank <a href="https://github.com/Huxpro" target="_blank" rel="noopener">Huxpro</a> for designing such a flawless theme.</p>
-<p>This BeanTech theme created by <a href="http://beantech.org" target="_blank" rel="noopener">YuHsuan</a> modified from the original Porter <a href="http://kaijun.rocks/hexo-theme-huxblog/" target="_blank" rel="noopener">Kaijun</a></p>
-</blockquote>
-<h1 id="live-demo"><a href="http://beantech.org" target="_blank" rel="noopener">Live Demo</a></h1>
-<hr>
-<p><img src="http://beantech.org/img/beantech-desktop.png" alt="BeanTech Desktop"></p>
-<h1 id="usage">Usage</h1>
-<hr>
-<p>I publish the whole project for your convenience, so you can just follow the instruction down below, then you can easily customiz your own blog!</p>
-<p>Let’s begin!!!</p>
-<h2 id="init">Init</h2>
-<hr>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/YenYuHsuan/hexo-theme-beantech.git ./hexo-beantech</span><br><span class="line"><span class="built_in">cd</span> hexo-beantech</span><br><span class="line">npm install</span><br></pre></td></tr></table></figure>
-<h2 id="modify">Modify</h2>
-<hr>
-<p>Modify <code>_config.yml</code> file with your own info.<br>
-Especially the section:</p>
-<h3 id="deployment">Deployment</h3>
-<p>Replace to your own repo!</p>
-<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">deploy:</span></span><br><span class="line"><span class="attr">  type:</span> <span class="string">git</span></span><br><span class="line"><span class="attr">  repo:</span> <span class="attr">https://github.com/&lt;yourAccount&gt;/&lt;repo&gt;</span></span><br><span class="line"><span class="attr">  branch:</span> <span class="string">&lt;your-branch&gt;</span></span><br></pre></td></tr></table></figure>
-<h3 id="sidebar-settings">Sidebar settings</h3>
-<p>Copy your avatar image to <code>&lt;root&gt;/img/</code> and modify the <code>_config.yml</code>:</p>
-<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">sidebar:</span> <span class="literal">true</span>    <span class="comment"># whether or not using Sidebar.</span></span><br><span class="line"><span class="attr">sidebar-about-description:</span> <span class="string">"&lt;your description&gt;"</span></span><br><span class="line"><span class="attr">sidebar-avatar:</span> <span class="string">img/&lt;your</span> <span class="string">avatar</span> <span class="string">path&gt;</span></span><br></pre></td></tr></table></figure>
-<p>and activate your personal widget you like</p>
-<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">widgets:</span>         <span class="comment"># here are widget you can use, you can comment out</span></span><br><span class="line"><span class="bullet">-</span> <span class="string">featured-tags</span></span><br><span class="line"><span class="bullet">-</span> <span class="string">short-about</span></span><br><span class="line"><span class="bullet">-</span> <span class="string">recent-posts</span></span><br><span class="line"><span class="bullet">-</span> <span class="string">friends-blog</span></span><br><span class="line"><span class="bullet">-</span> <span class="string">archive</span></span><br><span class="line"><span class="bullet">-</span> <span class="string">category</span></span><br></pre></td></tr></table></figure>
-<p>if you want to add sidebar widget, please add at <code>layout/_widget</code>.</p>
-<h3 id="signature-setup">Signature Setup</h3>
-<p>Copy your signature image to <code>&lt;root&gt;/img/signature</code> and modify the <code>_config.yml</code>:</p>
-<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">signature:</span> <span class="literal">true</span>   <span class="comment"># show signature</span></span><br><span class="line"><span class="attr">signature-img:</span> <span class="string">img/signature/&lt;your-signature-ID&gt;</span></span><br></pre></td></tr></table></figure>
-<h3 id="go-to-top-icon-setup">Go to top icon Setup</h3>
-<p>My icon is using iron man, you can change to your own icon at <code>css/image</code>.</p>
-<h3 id="post-tag">Post tag</h3>
-<p>You can decide to show post tags or not.</p>
-<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">home_posts_tag:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure>
-<p><img src="home_posts_tag-true.png" alt="home_posts_tag-true"></p>
-<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">home_posts_tag:</span> <span class="literal">false</span></span><br></pre></td></tr></table></figure>
-<p><img src="home_posts_tag-false.png" alt="home_posts_tag-false"></p>
-<h3 id="markdown-render">Markdown render</h3>
-<p>My markdown render engine plugin is <a href="https://github.com/celsomiranda/hexo-renderer-markdown-it" target="_blank" rel="noopener">hexo-renderer-markdown-it</a>.</p>
-<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Markdown-it config</span></span><br><span class="line"><span class="comment">## Docs: https://github.com/celsomiranda/hexo-renderer-markdown-it/wiki</span></span><br><span class="line"><span class="attr">markdown:</span></span><br><span class="line"><span class="attr">  render:</span></span><br><span class="line"><span class="attr">    html:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">    xhtmlOut:</span> <span class="literal">false</span></span><br><span class="line"><span class="attr">    breaks:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">    linkify:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">    typographer:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">    quotes:</span> <span class="string">'“”‘’'</span></span><br></pre></td></tr></table></figure>
-<p>and if you want to change the header anchor ‘ℬ’, you can go to <code>layout/post.ejs</code> to change it.</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">async</span>(<span class="string">"https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js"</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        anchors.options = &#123;</span><br><span class="line">          visible: <span class="string">'hover'</span>,</span><br><span class="line">          placement: <span class="string">'left'</span>,</span><br><span class="line">          icon: ℬ <span class="comment">// this is the header anchor "unicode" icon</span></span><br><span class="line">        &#125;;</span><br></pre></td></tr></table></figure>
-<h2 id="hexo-basics">Hexo Basics</h2>
-<hr>
-<p>Some hexo command:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">hexo new post <span class="string">"&lt;post name&gt;"</span> <span class="comment"># you can change post to another layout if you want</span></span><br><span class="line">hexo clean &amp;&amp; hexo generate <span class="comment"># generate the static file</span></span><br><span class="line">hexo server <span class="comment"># run hexo in local environment</span></span><br><span class="line">hexo deploy <span class="comment"># hexo will push the static files automatically into the specific branch(gh-pages) of your repo!</span></span><br></pre></td></tr></table></figure>
-<h1 id="have-fun-_">Have fun ^_^</h1>
-<hr>
-<!-- Place this tag in your head or just before your close body tag. -->
-<script async defer src="https://buttons.github.io/buttons.js"></script>
-<!-- Place this tag where you want the button to render. -->
-<p>Please <a class="github-button" href="https://github.com/YenYuHsuan/hexo-theme-beantech" data-icon="octicon-star" aria-label="Star YenYuHsuan/hexo-theme-beantech on GitHub" target="_blank" rel="noopener">Star</a> this Project if you like it! <a class="github-button" href="https://github.com/YenYuHsuan" aria-label="Follow @YenYuHsuan on GitHub" target="_blank" rel="noopener">Follow</a> would also be appreciated!<br>
-Peace!</p>
+                <h1 id="kubespray-deploy-kubernetes-v111-cluster">Kubespray deploy Kubernetes v1.11 cluster</h1>
+<p>Kubespray 是 Kubernetes incubator 中的專案，目標是提供 Production Ready Kubernetes 部署方案，該專案基礎是透過 Ansible Playbook 來定義系統與 Kubernetes 叢集部署的任務，目前 Kubespray 有以下幾個特點：</p>
+<p>可以部署在 AWS, GCE, Azure, OpenStack 或者 Baremetal.<br>
+部署 High Available Kubernetes 叢集.<br>
+可組合性(Composable)，可自行選擇 Network Plugin (flannel, calico, canal, weave) 來部署.<br>
+支援多種 Linux distributions(CoreOS, Debian Jessie, Ubuntu 16.04, CentOS/RHEL7).<br>
+本篇將說明如何透過 Kubespray 部署 Kubernetes 至實體機器節點，安裝版本如下所示：</p>
+<p>Kubernetes v1.6.4<br>
+Etcd v3.1.6<br>
+Flannel v0.7.1<br>
+Docker v17.04.0-ce</p>
+<p>節點資訊<br>
+本次安裝測試環境的作業系統採用Ubuntu 16.04 Server，其他細節內容如下：</p>
+<table>
+<thead>
+<tr>
+<th>IP        Address</th>
+<th>Role</th>
+<th>CPU</th>
+<th>Memory</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>192.168.121.6</td>
+<td>master1 + deploy</td>
+<td>2</td>
+<td>4G</td>
+</tr>
+<tr>
+<td>192.168.121.7</td>
+<td>node1</td>
+<td>2</td>
+<td>4G</td>
+</tr>
+<tr>
+<td>192.168.121.8</td>
+<td>node1</td>
+<td>2</td>
+<td>4G</td>
+</tr>
+<tr>
+<td>192.168.121.9</td>
+<td>node1</td>
+<td>2</td>
+<td>4G</td>
+</tr>
+</tbody>
+</table>
+<p>這邊 master 為主要控制節點，node 為應用程式工作節點。</p>
+<p>預先準備資訊<br>
+所有節點的網路之間可以互相溝通。</p>
+<p>部署節點(這邊為 master1)對其他節點不需要 SSH 密碼即可登入。</p>
+<p>所有節點都擁有 Sudoer 權限，並且不需要輸入密碼。</p>
+<p>所有節點需要安裝 Python。</p>
+<p>所有節點需要設定/etc/host解析到所有主機。</p>
+<p>修改所有節點/etc/resolv.conf：</p>
+<pre><code>$ echo &quot;nameserver 8.8.8.8&quot; | sudo tee /etc/resolv.conf
+</code></pre>
+<p>部署節點(這邊為 master1)需要安裝 Ansible &gt; 2.3.0。<br>
+Ubuntu 16.04 安裝最新版 Ansible:</p>
+<pre><code>$ sudo sed -i 's/us.archive.ubuntu.com/tw.archive.ubuntu.com/g' /etc/apt/sources.list
+$ sudo apt-get install -y software-properties-common
+$ sudo apt-add-repository -y ppa:ansible/ansible
+$ sudo apt-get update &amp;&amp; sudo apt-get install -y ansible git cowsay python-pip python-netaddr libssl-dev
+</code></pre>
+<p>安裝 Kubespray 與準備部署資訊<br>
+首先透過 pypi 安裝 kubespray-cli，雖然官方說已經改成 Go 語言版本的工具，但是根本沒在更新，所以目前暫時用 pypi 版本：</p>
+<p>安裝完成後，新增設定檔~/.kubespray.yml，並加入以下內容：</p>
+<pre><code>$ mkdir /etc/kubespray
+$ cat &lt;&lt;EOF &gt; ~/.kubespray.yml
+kubespray_git_repo: &quot;https://github.com/kubernetes-incubator/kubespray.git&quot;
+# Logging options
+loglevel: &quot;info&quot;
+EOF
+</code></pre>
+<p>接著用 kubespray cli 來產生 inventory 檔案：</p>
+<pre><code>$ kubespray prepare --masters master1 --etcds master1 --nodes node1 node2 node3
+$ cat ~/.kubespray/inventory/inventory.cfg
+</code></pre>
+<p>也可以自己建立inventory來描述部署節點。</p>
+<p>完成後就可以透過以下指令進行部署 Kubernetes 叢集：</p>
+<pre><code>$ time kubespray deploy --verbose -u root -k .ssh/id_rsa -n flannel
+Run kubernetes cluster deployment with the above command ? [Y/n]y
+...
+master1                    : ok=368  changed=89   unreachable=0    failed=0
+node1                      : ok=305  changed=73   unreachable=0    failed=0
+node2                      : ok=276  changed=62   unreachable=0    failed=0
+node3                      : ok=276  changed=62   unreachable=0    failed=0
+
+Kubernetes deployed successfuly
+</code></pre>
+<p>其中-n為部署的網路插件類型，目前支援 calico、flannel、weave 與 canal。</p>
+<p>驗證叢集<br>
+當 Ansible 執行完成後，若沒發生錯誤就可以開始進行操作 Kubernetes，如取得版本資訊：</p>
+<pre><code>$ kubectl version
+Client Version: version.Info{Major:&quot;1&quot;, Minor:&quot;6&quot;, GitVersion:&quot;v1.6.4+coreos.0&quot;, GitCommit:&quot;9212f77ed8c169a0afa02e58dce87913c6387b3e&quot;, GitTreeState:&quot;clean&quot;, BuildDate:&quot;2017-04-04T00:32:53Z&quot;, GoVersion:&quot;go1.7.5&quot;, Compiler:&quot;gc&quot;, Platform:&quot;linux/amd64&quot;}
+Server Version: version.Info{Major:&quot;1&quot;, Minor:&quot;6&quot;, GitVersion:&quot;v1.6.4+coreos.0&quot;, GitCommit:&quot;9212f77ed8c169a0afa02e58dce87913c6387b3e&quot;, GitTreeState:&quot;clean&quot;, BuildDate:&quot;2017-04-04T00:32:53Z&quot;, GoVersion:&quot;go1.7.5&quot;, Compiler:&quot;gc&quot;, Platform:&quot;linux/amd64&quot;}
+</code></pre>
+<p>取得目前節點狀態：</p>
+<pre><code>$ kubectl get node
+NAME      STATUS                     AGE       VERSION
+master1   Ready,SchedulingDisabled   11m       v1.6.4+coreos.0
+node1     Ready                      11m       v1.6.4+coreos.0
+node2     Ready                      11m       v1.6.4+coreos.0
+node3     Ready                      11m       v1.6.4+coreos.0
+</code></pre>
+<p>查看目前系統 Pod 狀態：</p>
+<pre><code>$ kubectl get po -n kube-system
+NAME                                  READY     STATUS    RESTARTS   AGE
+dnsmasq-975202658-6jj3n               1/1       Running   0          14m
+dnsmasq-975202658-h4rn9               1/1       Running   0          14m
+dnsmasq-autoscaler-2349860636-kfpx0   1/1       Running   0          14m
+flannel-master1                       1/1       Running   1          14m
+flannel-node1                         1/1       Running   1          14m
+flannel-node2                         1/1       Running   1          14m
+flannel-node3                         1/1       Running   1          14m
+kube-apiserver-master1                1/1       Running   0          15m
+kube-controller-manager-master1       1/1       Running   0          15m
+kube-proxy-master1                    1/1       Running   1          14m
+kube-proxy-node1                      1/1       Running   1          14m
+kube-proxy-node2                      1/1       Running   1          14m
+kube-proxy-node3                      1/1       Running   1          14m
+kube-scheduler-master1                1/1       Running   0          15m
+kubedns-1519522227-thmrh              3/3       Running   0          14m
+kubedns-autoscaler-2999057513-tx14j   1/1       Running   0          14m
+nginx-proxy-node1                     1/1       Running   1          14m
+nginx-proxy-node2                     1/1       Running   1          14m
+nginx-proxy-node3                     1/1       Running   1          14m
+</code></pre>
 
                 
 
@@ -274,9 +348,13 @@ Peace!</p>
                 <ul class="pager">
                     
                         <li class="previous">
-                            <a href="/blog/2018/08/18/kubespray-deploy-kubernetes/" data-toggle="tooltip" data-placement="top" title="Kubespray deploy Kubernetes v1.11 cluster">&larr; Previous Post</a>
+                            <a href="/blog/2018/08/18/Azure-create-ubuntu-VM-with-RDP/" data-toggle="tooltip" data-placement="top" title="Azure create ubuntu VM with RDP">&larr; Previous Post</a>
                         </li>
                     
+                    
+                        <li class="next">
+                            <a href="/blog/2017/03/18/hexo-theme-beantech/" data-toggle="tooltip" data-placement="top" title="[Hexo] Theme BeanTech">Next Post &rarr;</a>
+                        </li>
                     
                 </ul>
 
@@ -305,7 +383,7 @@ Peace!</p>
       <div id="toc" class="toc-article">
       <strong class="toc-title">Contents</strong>
       
-        <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#live-demo"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">Live Demo</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#usage"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">Usage</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#init"><span class="toc-nav-number">2.1.</span> <span class="toc-nav-text">Init</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#modify"><span class="toc-nav-number">2.2.</span> <span class="toc-nav-text">Modify</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#deployment"><span class="toc-nav-number">2.2.1.</span> <span class="toc-nav-text">Deployment</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#sidebar-settings"><span class="toc-nav-number">2.2.2.</span> <span class="toc-nav-text">Sidebar settings</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#signature-setup"><span class="toc-nav-number">2.2.3.</span> <span class="toc-nav-text">Signature Setup</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#go-to-top-icon-setup"><span class="toc-nav-number">2.2.4.</span> <span class="toc-nav-text">Go to top icon Setup</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#post-tag"><span class="toc-nav-number">2.2.5.</span> <span class="toc-nav-text">Post tag</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#markdown-render"><span class="toc-nav-number">2.2.6.</span> <span class="toc-nav-text">Markdown render</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#hexo-basics"><span class="toc-nav-number">2.3.</span> <span class="toc-nav-text">Hexo Basics</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#have-fun-_"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">Have fun ^_^</span></a></li></ol>
+        <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#kubespray-deploy-kubernetes-v111-cluster"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">Kubespray deploy Kubernetes v1.11 cluster</span></a></li></ol>
       
       </div>
     </aside>
@@ -325,9 +403,7 @@ Peace!</p>
                     <h5><a href="/blog/tags/">FEATURED TAGS</a></h5>
                     <div class="tags">
                        
-                          <a class="tag" href="/blog/tags/#Hexo" title="Hexo">Hexo</a>
-                        
-                          <a class="tag" href="/blog/tags/#Blog" title="Blog">Blog</a>
+                          <a class="tag" href="/blog/tags/#Kubernetes" title="Kubernetes">Kubernetes</a>
                         
                     </div>
                 </section>
@@ -347,8 +423,8 @@ Peace!</p>
 <script type="text/javascript">
     /* * * CONFIGURATION VARIABLES * * */
     var disqus_shortname = "rmp410558";
-    var disqus_identifier = "http://yoursite-url/2017/03/18/hexo-theme-beantech/";
-    var disqus_url = "http://yoursite-url/2017/03/18/hexo-theme-beantech/";
+    var disqus_identifier = "http://yoursite-url/2018/08/18/kubespray-deploy-kubernetes/";
+    var disqus_url = "http://yoursite-url/2018/08/18/kubespray-deploy-kubernetes/";
 
     (function() {
         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
