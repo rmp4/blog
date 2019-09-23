@@ -139,14 +139,14 @@
 
                         
                         <li>
-                            <a href="/blog/tags/">Tags</a>
+                            <a href="/blog/archive/">Archives</a>
                         </li>
                         
                     
 
                         
                         <li>
-                            <a href="/blog/archive/">Archives</a>
+                            <a href="/blog/tags/">Tags</a>
                         </li>
                         
                     
@@ -342,40 +342,6 @@ Hyper-V Requirements:     VM Monitor Mode Extensions: Yes
 
 <div class="post-preview">
 
-    <a href="/blog/2018/10/11/test/">
-        <h2 class="post-title">
-            test
-        </h2>
-        <h3 class="post-subtitle">
-            
-        </h3>
-        <div class="post-content-preview">
-            Usage
-
-I publish the whole project for your convenience, so you can just follow the instruction down below, then you can easily customiz your own blog!
-Let’s begin!!!
-Init
-
-123git clone https://git......
-        </div>
-    </a>
-    
-        <p class="post-meta" style="margin: 10px 0;">
-            Posted by Jim on
-            2018-10-11
-        </p>
-        <div class="tags">
-            
-              <a href="/blog/tags/#Test" title="Test">Test</a>
-            
-        </div>
-    
-
-</div>
-<hr>
-
-<div class="post-preview">
-
     <a href="/blog/2018/09/21/Prisma-on-kubernetes/">
         <h2 class="post-title">
             Prisma on kubernetes
@@ -401,6 +367,36 @@ Prisma ......
               <a href="/blog/tags/#Kubernetes" title="Kubernetes">Kubernetes</a>
             
               <a href="/blog/tags/#Graphql" title="Graphql">Graphql</a>
+            
+        </div>
+    
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/blog/2018/09/17/Kubernetes-namespaces-stuck-in-terminating-state/">
+        <h2 class="post-title">
+            Kubernetes namespaces stuck in terminating state
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+            刪除K8s Namespace時卡在Terminating狀態
+想要刪除K8s裡的一個Namespace，結果刪除了所有該Namespace資源之後使用kubectl delete namespace test發現刪除不掉，一直卡在Terminating狀態，使用–force參數依然無法刪除，報錯:
+Error from server (Conflict): Operation cannot......
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by Jim on
+            2018-09-17
+        </p>
+        <div class="tags">
+            
+              <a href="/blog/tags/#Kubernetes" title="Kubernetes">Kubernetes</a>
             
         </div>
     
@@ -471,36 +467,60 @@ Kubespray 是 Kubernetes incubator 中的專案，目標是提供 Production Rea
 
 <div class="post-preview">
 
-    <a href="/blog/2017/03/18/hexo-theme-beantech/">
+    <a href="/blog/2017/10/11/test/">
         <h2 class="post-title">
-            [Hexo] Theme BeanTech
+            Blog Setting
         </h2>
         <h3 class="post-subtitle">
-            This is hexo theme Demo.
+            
         </h3>
         <div class="post-content-preview">
-            
-Ported Theme of Hux Blog, Thank Huxpro for designing such a flawless theme.
-This BeanTech theme created by YuHsuan modified from the original Porter Kaijun
+            Usage
 
-Live Demo
+I publish the whole project for your convenience, so you can just follow the instruction down below, then you can easily customiz your own blog!
+Let’s begin!!!
+Init
 
-
-Usage
-
-I publish the whole ......
+123git clone https://git......
         </div>
     </a>
     
         <p class="post-meta" style="margin: 10px 0;">
             Posted by Jim on
-            2017-03-18
+            2017-10-11
         </p>
         <div class="tags">
             
-              <a href="/blog/tags/#Hexo" title="Hexo">Hexo</a>
+              <a href="/blog/tags/#Setting" title="Setting">Setting</a>
             
-              <a href="/blog/tags/#Blog" title="Blog">Blog</a>
+        </div>
+    
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/blog/2017/09/23/var-vs-let-const-in-JavaScript/">
+        <h2 class="post-title">
+            ES6 中 var let const 的差異
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+            Javascript 在ES6中新增了let的宣告方式來取代var，在ES6以前，javascript最讓人詬病的就是沒有辦法區隔變數，常常出現區域變數覆蓋掉全域變數的問題，或者是for loop中的循環變數洩漏成全域變數的副作用，而在ES6中，有了區域塊的概念以及let的出現，可以避免上述情況發生
+如果變數的宣告在往後的程式碼中部會重新賦予值，const則會是我們預設使用宣告的方法，這樣的......
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by Jim on
+            2017-09-23
+        </p>
+        <div class="tags">
+            
+              <a href="/blog/tags/#Node JS" title="Node JS">Node JS</a>
             
         </div>
     
@@ -514,6 +534,10 @@ I publish the whole ......
 
 <ul class="pager">
     
+    
+        <li class="next">
+            <a href="/blog/archives/2/">Older Posts &rarr;</a>
+        </li>
     
 </ul>
 
@@ -604,7 +628,7 @@ I publish the whole ......
         </li>
       
         <li>
-          <a href="2018/10/11/test/">test</a>
+          <a href="2018/09/21/Prisma-on-kubernetes/">Prisma on kubernetes</a>
         </li>
       
     </ul>

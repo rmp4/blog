@@ -16,22 +16,8 @@
     </url>
 
     <url>
-        <loc>http://yoursite-url/tags/Test/</loc>
-        <lastmod>2018-10-13T06:09:20.096Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
         <loc>http://yoursite-url/tags/golang/</loc>
         <lastmod>2019-03-14T14:22:11.423Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>http://yoursite-url/tags/Kubernetes/</loc>
-        <lastmod>2019-08-17T18:44:03.915Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
@@ -60,6 +46,34 @@
     <url>
         <loc>http://yoursite-url/tags/Graphql/</loc>
         <lastmod>2019-08-17T18:56:37.508Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>http://yoursite-url/tags/Kubernetes/</loc>
+        <lastmod>2019-09-17T07:17:36.136Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>http://yoursite-url/tags/Setting/</loc>
+        <lastmod>2019-09-17T07:22:19.684Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>http://yoursite-url/tags/Node-JS/</loc>
+        <lastmod>2019-09-23T08:34:04.166Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>http://yoursite-url/tags/web/</loc>
+        <lastmod>2019-09-23T10:23:25.856Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
